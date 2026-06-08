@@ -19,4 +19,8 @@ public class MainMenuManager : MonoBehaviour
     {
         creditsPanel.SetActive(false);
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

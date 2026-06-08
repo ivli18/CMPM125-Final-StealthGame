@@ -320,6 +320,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveSpeed: 10
   winPanel: {fileID: 709950895}
+  sprintMult: 1.5
+  maxStamina: 100
+  drainRate: 30
+  regenRate: 10
+  staminaBarFill: {fileID: 0}
 --- !u!136 &231351619
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1257,7 +1262,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: b5853ca21a6e620439938facab793980, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: e79c440044fa5d946a7b6f5e0db2cf20, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &492019833
 Transform:
