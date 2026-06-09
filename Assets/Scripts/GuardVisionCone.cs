@@ -5,6 +5,11 @@ public class GuardVisionCone : MonoBehaviour
     [SerializeField] private int resolution = 30;
     [SerializeField] private int circleResolution = 30;
 
+    // Bryce - "Trying to get the new shader to work with the vision cone logic already in place"
+    [Header("Vision Cone Material")]
+    [SerializeField] private Material hologramMaterial;
+    [SerializeField] private string colorProperty = "_Color"; 
+
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
     private Material coneMaterial;
@@ -18,11 +23,20 @@ public class GuardVisionCone : MonoBehaviour
         vizObj.transform.SetParent(transform);
         vizObj.transform.localPosition = Vector3.zero;
         vizObj.transform.localRotation = Quaternion.identity;
+        
         meshFilter = vizObj.AddComponent<MeshFilter>();
         meshRenderer = vizObj.AddComponent<MeshRenderer>();
 
-        coneMaterial = new Material(Shader.Find("Legacy Shaders/Transparent/Diffuse"));
-        coneMaterial.color = new Color(0f, 1f, 0f, 0.2f);
+        // Bryce - Changing Material for hologram purposes
+        if (hologramMaterial != null)
+        {
+            coneMaterial = new Material(hologramMaterial);
+        }
+        else
+        {
+            coneMaterial = new Material(Shader.Find("Shader Graphs/HologramShader"));
+        }
+
         meshRenderer.material = coneMaterial;
 
         combinedMesh = new Mesh();
@@ -35,8 +49,30 @@ public class GuardVisionCone : MonoBehaviour
         this.angle = coneAngle;
         this.circleRadius = circleRadius;
 
-        float alpha = Mathf.Lerp(0.1f, 0.5f, suspicionMeter / 100f);
-        coneMaterial.color = new Color(stateColor.r, stateColor.g, stateColor.b, alpha);
+        float t = Mathf.Clamp01(suspicionMeter / 100f);
+
+        float alpha = Mathf.Lerp(0.25f, 0.8f, t);
+        Color coneColor = new Color(stateColor.r, stateColor.g, stateColor.b, alpha);
+        
+        // Bryce - Testing changes to material properties
+        if (coneMaterial.HasProperty(colorProperty))
+        {
+            coneMaterial.SetColor(colorProperty, coneColor);
+        }
+
+        if (coneMaterial.HasProperty("_FresnelPower"))
+        {
+            coneMaterial.SetFloat("_FresnelPower", Mathf.Lerp(2.5f, 0.75f, t));
+        }
+
+        if (coneMaterial.HasProperty("_VectorOffset"))
+        {
+            coneMaterial.SetFloat("_VectorOffset", Mathf.Lerp(0.05f, 0.2f, t));
+        }
+        if (coneMaterial.HasProperty("_ScanLineTiling"))
+        {
+            coneMaterial.SetVector("_ScanLineTiling", new Vector2(1f, -25f));
+        }
 
         BuildCombinedMesh();
     }
@@ -94,8 +130,21 @@ public class GuardVisionCone : MonoBehaviour
         for (int i = 0; i < circleTriangles.Length; i++)
             allTris[coneTriangles.Length + i] = circleTriangles[i] + coneVerts;
 
+        Vector2[] allUVs = new Vector2[allVerts.Length];
+
+        for (int i = 0; i < allVerts.Length; i++)
+        {
+            Vector3 v = allVerts[i];
+
+            allUVs[i] = new Vector2(
+                v.x / range + 0.5f,
+                v.z / range + 0.5f
+            );
+        }
+
         combinedMesh.vertices = allVerts;
         combinedMesh.triangles = allTris;
+        combinedMesh.uv = allUVs;
         combinedMesh.RecalculateNormals();
-    }
+            }
 }

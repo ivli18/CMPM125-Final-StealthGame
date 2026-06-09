@@ -17,7 +17,8 @@ public class GuardAgent : MonoBehaviour
     [SerializeField] private float suspicionDrainRate = 15f;
     [SerializeField] private float confusedDuration = 3f;
 
-    [SerializeField] private Color roamingColor = Color.green;
+    // [SerializeField] private Color roamingColor = Color.green;
+    [SerializeField] private Color roamingColor = Color.magenta;
     [SerializeField] private Color suspiciousColor = Color.yellow;
     [SerializeField] private Color alertedColor = Color.red;
     [SerializeField] private Color confusedColor = Color.blue;
@@ -52,7 +53,8 @@ public class GuardAgent : MonoBehaviour
         UpdateSuspicionMeter(canSee);
         UpdateStateTransitions(canSee);
         UpdateStateBehavior();
-        visionCone.UpdateVision(coneRange, coneAngle, circleRadius, rend.material.color, suspicionMeter);
+        Color coneColor = Color.Lerp(roamingColor, alertedColor, suspicionMeter / 100f);
+        visionCone.UpdateVision(coneRange, coneAngle, circleRadius, coneColor, suspicionMeter);
     }
 
     private bool CanSeePlayer()

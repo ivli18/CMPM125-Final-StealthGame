@@ -128,7 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c711655da18dc0b4ab50b63e6dacec41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  cam: {fileID: 0}
   waypoints: []
   coneRange: 10
   coneAngle: 60
@@ -137,7 +136,6 @@ MonoBehaviour:
   circleFillMult: 1.5
   suspicionDrainRate: 15
   confusedDuration: 3
-  coneResolution: 20
   roamingColor: {r: 0, g: 1, b: 0, a: 1}
   suspiciousColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   alertedColor: {r: 1, g: 0, b: 0, a: 1}
@@ -154,3 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77aa6d45e20e999449d1c33b788bb9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuardVisionCone
+  resolution: 30
+  circleResolution: 30
+  hologramMaterial: {fileID: 2100000, guid: a38409f9058bd02478ff050803c33709, type: 2}
+  colorProperty: _Color
