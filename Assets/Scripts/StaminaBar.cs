@@ -1,16 +1,21 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StaminaBar : MonoBehaviour
 {
-    private Camera cam;
+    [Header("References")]
+    public Slider slider;
+    public Image fillImage;
 
-    void Start()
-    {
-        cam = Camera.main;
-    }
+    [Header("Colors")]
+    public Color fullColor = new Color(1f, 0.85f, 0f);
+    public Color lowColor  = new Color(0.9f, 0.1f, 0.1f);
 
-    void LateUpdate()
+    public void SetMax(float max) => slider.maxValue = max;
+
+    public void SetValue(float value)
     {
-        transform.rotation = cam.transform.rotation;
+        slider.value = value;
+        fillImage.color = Color.Lerp(lowColor, fullColor, value / slider.maxValue);
     }
 }

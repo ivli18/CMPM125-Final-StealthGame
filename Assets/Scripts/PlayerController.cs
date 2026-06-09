@@ -1,19 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public GameObject winPanel;        // Win UI panel here
+    public GameObject winPanel;
     private CharacterController cc;
 
-    // sprint handling
     public float sprintMult = 1.5f;
     public float maxStamina = 100f;
     public float drainRate = 30f;
     public float regenRate = 10f;
     private float stamina;
     public RectTransform staminaBarFill;
+    public Image staminaBarImage;
+    
+
+    readonly Color fullColor = new Color(1f, 0.85f, 0f);
+    readonly Color lowColor  = new Color(0.9f, 0.1f, 0.1f);
 
     void Start()
     {
@@ -25,26 +30,23 @@ public class PlayerController : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        // sprint check
+
         bool isSprinting = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
-        if (isSprinting)
-        {
-            stamina -= drainRate * Time.deltaTime;
-        } else {
-            stamina += regenRate * Time.deltaTime;
-        }
+        stamina += (isSprinting ? -drainRate : regenRate) * Time.deltaTime;
         stamina = Mathf.Clamp(stamina, 0, maxStamina);
 
-        // update stamina bar
+        float fill = stamina / maxStamina;
+        staminaBarFill.pivot = new Vector2(0.5f, 0f);
+        staminaBarFill.localScale = new Vector3(1, fill, 1);
+
         if (staminaBarFill != null)
-        {
-            float fill = stamina / maxStamina;
-            staminaBarFill.localScale = new Vector3(fill, 1, 1);
-        }   
+            staminaBarFill.localScale = new Vector3(1, fill, 1);
+
+        if (staminaBarImage != null)
+            staminaBarImage.color = Color.Lerp(lowColor, fullColor, fill);
 
         float currentSpeed = moveSpeed * (isSprinting ? sprintMult : 1f);
-        Vector3 move = new Vector3(h, 0, v) * currentSpeed;
-        cc.Move(move * Time.deltaTime);
+        cc.Move(new Vector3(h, 0, v) * currentSpeed * Time.deltaTime);
     }
 
     public void TriggerWin()
