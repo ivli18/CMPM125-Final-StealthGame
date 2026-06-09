@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3298500136754628866}
   - component: {fileID: 503740806889856282}
   - component: {fileID: 2146201399075881973}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Guard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,6 +140,10 @@ MonoBehaviour:
   suspiciousColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   alertedColor: {r: 1, g: 0, b: 0, a: 1}
   confusedColor: {r: 0, g: 0, b: 1, a: 1}
+  alertRadius: 20
+  guardLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &2146201399075881973
 MonoBehaviour:
   m_ObjectHideFlags: 0

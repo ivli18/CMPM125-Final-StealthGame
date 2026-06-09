@@ -23,6 +23,10 @@ public class GuardAgent : MonoBehaviour
     [SerializeField] private Color alertedColor = Color.red;
     [SerializeField] private Color confusedColor = Color.blue;
 
+    // Bryce - Variables for the alert chain feature
+    [SerializeField] private float alertRadius = 12f;
+    [SerializeField] private LayerMask guardLayer;
+
     private NavMeshAgent agent;
     private GuardVisionCone visionCone;
     private Transform player;
@@ -105,7 +109,12 @@ public class GuardAgent : MonoBehaviour
                 break;
 
             case GuardState.Suspicious:
-                if (suspicionMeter >= 100) SetState(GuardState.Alerted);
+                if (suspicionMeter >= 100)
+                {
+                    SetState(GuardState.Alerted);
+                    // Bryce - Start Alert Chain
+                    AlertNearbyGuards();
+                }
                 else if (suspicionMeter <= 0) SetState(GuardState.Confused);
                 break;
 
@@ -181,6 +190,28 @@ public class GuardAgent : MonoBehaviour
         if (waypoints.Count == 0) return;
         currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
         agent.SetDestination(waypoints[currentWaypointIndex].position);
+    }
+
+    private void AlertNearbyGuards()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, alertRadius, guardLayer);
+
+        foreach (Collider hit in hits)
+        {
+            GuardAgent otherGaurd = hit.GetComponent <GuardAgent>();
+
+            if (otherGaurd != null && otherGaurd != this)
+            {
+                otherGaurd.ReceiveAlert(player.position);
+            }
+        }
+    }
+
+    public void ReceiveAlert(Vector3 targetPosition)
+    {
+        lastKnownPosition = targetPosition;
+        suspicionMeter = 100f;
+        SetState(GuardState.Alerted);
     }
 
 }
