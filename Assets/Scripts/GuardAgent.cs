@@ -142,9 +142,12 @@ public class GuardAgent : MonoBehaviour
 
             case GuardState.Suspicious:
                 agent.SetDestination(transform.position);
-                Vector3 dir = player.position - transform.position;
-                dir.y = 0;
-                transform.rotation = Quaternion.LookRotation(dir);
+                if (CanSeePlayer())
+                {
+                    Vector3 dir = player.position - transform.position;
+                    dir.y = 0;
+                    transform.rotation = Quaternion.LookRotation(dir);
+                }
                 break;
 
             case GuardState.Confused:

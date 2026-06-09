@@ -1846,12 +1846,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709950895}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 19.28, y: 5, z: 8.99}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -2.709999, y: 4.07, z: -2.58}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1529612882}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &784182991
 GameObject:
@@ -3375,6 +3375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f5baaac9e79004f8b597bc7ac427f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WinItem
+  nextScene: Scene2
 --- !u!65 &1529612879
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3465,7 +3466,8 @@ Transform:
   m_LocalPosition: {x: 21.99, y: 0.93, z: 11.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 709950898}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1608291924
@@ -4472,4 +4474,3 @@ SceneRoots:
   - {fileID: 636233327}
   - {fileID: 1234615914}
   - {fileID: 1529612882}
-  - {fileID: 709950898}
