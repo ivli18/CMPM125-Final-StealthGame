@@ -5205,7 +5205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f5baaac9e79004f8b597bc7ac427f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WinItem
-  nextScene: 
+  nextScene: Scene3
 --- !u!65 &1529612879
 BoxCollider:
   m_ObjectHideFlags: 0
