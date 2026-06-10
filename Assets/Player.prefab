@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20c90c30c0ba0f40bba9d003e45a743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  moveSpeed: 8
+  moveSpeed: 6
   winPanel: {fileID: 0}
   sprintMult: 1.5
   maxStamina: 100
@@ -138,6 +138,7 @@ MonoBehaviour:
   regenRate: 10
   staminaBarFill: {fileID: 1384009507502595732}
   staminaBarImage: {fileID: 7361020172501985974}
+  sprintEffect: {fileID: 0}
 --- !u!143 &1571792797857091388
 CharacterController:
   m_ObjectHideFlags: 0

@@ -8,11 +8,12 @@ public class PlayerController : MonoBehaviour
     public GameObject winPanel;
     private CharacterController cc;
 
-    public float sprintMult = 1.5f;
+    public float sprintMult = 1.3f;
     public float maxStamina = 100f;
     public float drainRate = 30f;
     public float regenRate = 10f;
     private float stamina;
+    private bool exhausted = false;
     public RectTransform staminaBarFill;
     public Image staminaBarImage;
 
@@ -29,42 +30,44 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+{
+    float h = Input.GetAxis("Horizontal");
+    float v = Input.GetAxis("Vertical");
 
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
-        stamina += (isSprinting ? -drainRate : regenRate) * Time.deltaTime;
-        stamina = Mathf.Clamp(stamina, 0, maxStamina);
+    if (stamina <= 0) exhausted = true;
+    if (stamina >= maxStamina * 0.3f) exhausted = false;
+    bool isSprinting = Input.GetKey(KeyCode.LeftShift) && stamina > 0 && !exhausted;
+    stamina += (isSprinting ? -drainRate : regenRate) * Time.deltaTime;
+    stamina = Mathf.Clamp(stamina, 0, maxStamina);
 
-        float fill = stamina / maxStamina;
-        staminaBarFill.pivot = new Vector2(0.5f, 0f);
+    float fill = stamina / maxStamina;
+    staminaBarFill.pivot = new Vector2(0.5f, 0f);
+    staminaBarFill.localScale = new Vector3(1, fill, 1);
+
+    if (staminaBarFill != null)
         staminaBarFill.localScale = new Vector3(1, fill, 1);
 
-        if (staminaBarFill != null)
-            staminaBarFill.localScale = new Vector3(1, fill, 1);
+    if (staminaBarImage != null)
+        staminaBarImage.color = Color.Lerp(lowColor, fullColor, fill);
 
-        if (staminaBarImage != null)
-            staminaBarImage.color = Color.Lerp(lowColor, fullColor, fill);
+    float currentSpeed = moveSpeed * (isSprinting ? sprintMult : 1f);
+    cc.Move(new Vector3(h, 0, v) * currentSpeed * Time.deltaTime);
 
-        float currentSpeed = moveSpeed * (isSprinting ? sprintMult : 1f);
-        cc.Move(new Vector3(h, 0, v) * currentSpeed * Time.deltaTime);
+    Vector3 move = new Vector3(h, 0, v);
 
-        Vector3 move = new Vector3(h, 0, v);
-        
-        if (isSprinting && (h != 0 || v != 0))
-        {
-            sprintEffect.transform.forward = -move.normalized;
-            
-            if (sprintEffect != null && !sprintEffect.isPlaying)
-                sprintEffect.Play();
-        }
-        else
-        {
-            if (sprintEffect != null && sprintEffect.isPlaying)
-                sprintEffect.Stop();
-        }
+    if (isSprinting && (h != 0 || v != 0))
+    {
+        sprintEffect.transform.forward = -move.normalized;
+
+        if (sprintEffect != null && !sprintEffect.isPlaying)
+            sprintEffect.Play();
     }
+    else
+    {
+        if (sprintEffect != null && sprintEffect.isPlaying)
+            sprintEffect.Stop();
+    }
+}
 
     public void TriggerWin()
     {

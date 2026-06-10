@@ -132,7 +132,7 @@ MonoBehaviour:
   coneRange: 10
   coneAngle: 60
   circleRadius: 2
-  suspicionFillRate: 25
+  suspicionFillRate: 35
   circleFillMult: 1.5
   suspicionDrainRate: 15
   confusedDuration: 3

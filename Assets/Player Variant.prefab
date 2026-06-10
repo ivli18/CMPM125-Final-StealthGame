@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -169,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4848,6 +4848,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1384009507502595732, guid: 005ef294390eb9a4f871ecfb6e1724fe, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056123152188031926, guid: 005ef294390eb9a4f871ecfb6e1724fe, type: 3}
+      propertyPath: moveSpeed
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3056123152188031926, guid: 005ef294390eb9a4f871ecfb6e1724fe, type: 3}
       propertyPath: sprintEffect
       value: 
@@ -4891,6 +4899,18 @@ PrefabInstance:
     - target: {fileID: 4001079797438562129, guid: 005ef294390eb9a4f871ecfb6e1724fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361020172501985974, guid: 005ef294390eb9a4f871ecfb6e1724fe, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361020172501985974, guid: 005ef294390eb9a4f871ecfb6e1724fe, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361020172501985974, guid: 005ef294390eb9a4f871ecfb6e1724fe, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11,9 +11,10 @@ public class AudioManager : MonoBehaviour
     }
     public enum SFXType
     {
-        SFX1,
-        SFX2,
-        SFX3,
+        Collected,
+        Goal,
+        Detected,
+        Caught,
     }
 
     [System.Serializable]
