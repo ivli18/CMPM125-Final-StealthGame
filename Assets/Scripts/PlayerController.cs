@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private float stamina;
     public RectTransform staminaBarFill;
     public Image staminaBarImage;
+
+    [SerializeField] private ParticleSystem sprintEffect;
     
 
     readonly Color fullColor = new Color(1f, 0.85f, 0f);
@@ -47,6 +49,21 @@ public class PlayerController : MonoBehaviour
 
         float currentSpeed = moveSpeed * (isSprinting ? sprintMult : 1f);
         cc.Move(new Vector3(h, 0, v) * currentSpeed * Time.deltaTime);
+
+        Vector3 move = new Vector3(h, 0, v);
+        
+        if (isSprinting && (h != 0 || v != 0))
+        {
+            sprintEffect.transform.forward = -move.normalized;
+            
+            if (sprintEffect != null && !sprintEffect.isPlaying)
+                sprintEffect.Play();
+        }
+        else
+        {
+            if (sprintEffect != null && sprintEffect.isPlaying)
+                sprintEffect.Stop();
+        }
     }
 
     public void TriggerWin()
