@@ -42,10 +42,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaStrength: 0.5
+    - _AlphaStrength: 0.1
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _FresnelPower: 1
+    - _FresnelPower: 0.5
     - _VectorOffset: 0.15
     m_Colors:
     - _Color: {r: 0.4481132, g: 0.6140226, b: 1, a: 1}
