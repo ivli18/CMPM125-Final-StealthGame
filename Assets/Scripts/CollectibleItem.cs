@@ -8,6 +8,7 @@ public class CollectibleItem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySFX(AudioManager.SFXType.Collected);
             ScoreManager.Instance.AddScore(value);
             Destroy(gameObject);
         }

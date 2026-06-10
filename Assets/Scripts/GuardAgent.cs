@@ -111,6 +111,7 @@ public class GuardAgent : MonoBehaviour
             case GuardState.Suspicious:
                 if (suspicionMeter >= 100)
                 {
+                    AudioManager.Instance.PlaySFX(AudioManager.SFXType.Detected);
                     SetState(GuardState.Alerted);
                     // Bryce - Start Alert Chain
                     AlertNearbyGuards();
@@ -155,7 +156,7 @@ public class GuardAgent : MonoBehaviour
                 break;
 
             case GuardState.Alerted:
-                agent.speed = 8f;
+                agent.speed = 10f;
                 agent.SetDestination(player.position);
                 if (Vector3.Distance(transform.position, player.position) < 1.2f)
                     player.GetComponent<PlayerController>().TriggerLose();

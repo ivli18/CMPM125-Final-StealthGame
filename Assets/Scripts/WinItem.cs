@@ -12,6 +12,8 @@ public class WinItem : MonoBehaviour
         }
         if (!string.IsNullOrEmpty(nextScene))
             {
+                AudioManager.Instance.PlaySFX(AudioManager.SFXType.Goal);
+                ScoreManager.Instance.AddLevel();
                 SceneManager.LoadScene(nextScene);
             }
             else

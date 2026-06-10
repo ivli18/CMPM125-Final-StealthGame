@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
 
     public void TriggerLose()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.SFXType.Caught);
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

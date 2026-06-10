@@ -264,7 +264,27 @@ MonoBehaviour:
     loop: 1
     type: 0
     clip: {fileID: 8300000, guid: 5e1a46bef41ad439e8fd0bde0b1d2041, type: 3}
-  sfxSounds: []
+  sfxSounds:
+  - volume: 0.5
+    loop: 0
+    type: 0
+    clips:
+    - {fileID: 8300000, guid: 881e3f52c86c94f26a60718d35627cd8, type: 3}
+  - volume: 0.5
+    loop: 0
+    type: 1
+    clips:
+    - {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+  - volume: 0.5
+    loop: 0
+    type: 2
+    clips:
+    - {fileID: 8300000, guid: 7bef0064f8567430cac22499c6b93d4f, type: 3}
+  - volume: 0.5
+    loop: 0
+    type: 3
+    clips:
+    - {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}
   fadeDuration: 3
 --- !u!4 &236688566
 Transform:
@@ -535,7 +555,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &335813031
 MonoBehaviour:

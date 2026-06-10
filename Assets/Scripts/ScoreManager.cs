@@ -6,6 +6,8 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
     private TMP_Text scoreText;
+    private TMP_Text levelText;
+    private int level = 1;
     private int score = 0;
     private int scoreAtSceneStart = 0;
     public int GetScore() => score;
@@ -27,10 +29,12 @@ public class ScoreManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
+    {   
         scoreAtSceneStart = score;
         GameObject obj = GameObject.FindWithTag("ScoreText");
         if (obj != null) scoreText = obj.GetComponent<TMP_Text>();
+        GameObject levelObj = GameObject.FindWithTag("LevelText");
+        if (levelObj != null) levelText = levelObj.GetComponent<TMP_Text>();
     }
 
     public void AddScore(int amount)
@@ -43,6 +47,11 @@ public class ScoreManager : MonoBehaviour
         score = scoreAtSceneStart;
         UpdateUI();
     }
+    public void AddLevel()
+    {
+        level++;
+        UpdateUI();
+    }
 
     void UpdateUI()
     {
@@ -50,5 +59,7 @@ public class ScoreManager : MonoBehaviour
         {
             scoreText.text = "Score: " + score;
         }
+        if (levelText != null)
+        levelText.text = "Level " + level;
     }
 }
