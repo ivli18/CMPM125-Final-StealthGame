@@ -5,7 +5,16 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject creditsPanel;
     [SerializeField] private GameObject settingsPanel;
+    public static bool showCreditsOnLoad = false;
 
+    void Start()
+    {
+        if (showCreditsOnLoad)
+        {
+            ShowCredits();
+            showCreditsOnLoad = false;
+        }
+    }
     public void StartGame()
     {
         SceneManager.LoadScene("Scene1"); 

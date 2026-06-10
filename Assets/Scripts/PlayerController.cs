@@ -71,8 +71,9 @@ public class PlayerController : MonoBehaviour
 
     public void TriggerWin()
     {
-        winPanel.SetActive(true);
-        Time.timeScale = 0f;
+        MainMenuManager.showCreditsOnLoad = true;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Main Menu Scene");
     }
 
     public void TriggerLose()
