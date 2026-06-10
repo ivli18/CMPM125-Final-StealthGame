@@ -46,6 +46,9 @@ public class AudioManager : MonoBehaviour
     private Dictionary<SFXType, SFXSound> sfxSoundDict = new();
     private AudioSource musicSource;
     private AudioSource sfxSource;
+    private float masterMusicVolume = 1f;
+    private float masterSFXVolume = 1f;
+
     private MusicType currentMusic;
 
     void Awake()
@@ -77,7 +80,7 @@ public class AudioManager : MonoBehaviour
     {
         if (!musicSoundDict.TryGetValue(type, out MusicSound s)) return;
         musicSource.clip = s.clip;
-        musicSource.volume = volumeOverride >= 0 ? volumeOverride : s.volume;
+        musicSource.volume = (volumeOverride >= 0 ? volumeOverride : s.volume) * masterMusicVolume;
         musicSource.loop = s.loop;    // Loops by default, can be overridden when playing
         musicSource.Play();
     }
@@ -90,7 +93,17 @@ public class AudioManager : MonoBehaviour
             return;
         }
         AudioClip clip = s.clips[Random.Range(0, s.clips.Length)];
-        sfxSource.PlayOneShot(clip, volumeOverride >= 0 ? volumeOverride : s.volume);
+        sfxSource.PlayOneShot(clip, (volumeOverride >= 0 ? volumeOverride : s.volume) * masterSFXVolume);
+    }
+    public void SetMusicVolume(float volume)
+    {
+        masterMusicVolume = volume;
+        musicSource.volume = volume;
+    }
+    public void SetSFXVolume(float volume)
+    {
+        masterSFXVolume = volume;
+        sfxSource.volume = volume;
     }
     public void FadeToMusic(MusicType type)
     {
@@ -112,15 +125,16 @@ public class AudioManager : MonoBehaviour
         source.Stop();
 
         // Swap and fade in
+        float adjustedTarget = targetVolume * masterMusicVolume;
         source.clip = newClip;
         source.loop = loop;
         source.volume = 0f;
         source.Play();
         for (float t = 0; t < fadeDuration; t += Time.deltaTime)
         {
-            source.volume = Mathf.Lerp(0f, targetVolume, t / fadeDuration);
+            source.volume = Mathf.Lerp(0f, adjustedTarget, t / fadeDuration);
             yield return null;
         }
-        source.volume = targetVolume;
-    }
+        source.volume = adjustedTarget;
+}
 }
